@@ -1,6 +1,7 @@
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
+const ipcMain = electron.ipcMain;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -21,6 +22,17 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+const total = require('./data/total.group.json');
+ipcMain.on('randShift',(event,arg)=>{
+  let copy = Array.from(total)
+  let rtn = [];
+  for (var i = 0; i < arg; i++) {
+    rtn.push(copy.splice(parseInt(Math.random()*copy.length),1)[0]);
+  }
+  copy = null;
+  event.sender.send('randShiftCB',rtn);
+})
+
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
