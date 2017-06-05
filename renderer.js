@@ -18,8 +18,9 @@ const plot_S = require('./data/小区小车.json').filter((e)=>{return(e.coords.
 const plot_L = require('./data/小区大车.json').filter((e)=>{return(e.coords.length>1)});
 const service_S_1 = require('./data/公务小车01.json').filter((e)=>{return(e.coords.length>1)});
 const service_S_2 = require('./data/公务小车02.json').filter((e)=>{return(e.coords.length>1)});
-const total = require('./data/total.group.json').filter((e)=>{return(e.coords.length>1)});
+let total = require('./data/total.group.json').filter((e)=>{return(e.coords.length>1)});
 // const total = service_S_1.concat(service_S_2,share_L,share_S_In,share_S_Out,UGV,plot_L,plot_S,TOB).filter((e)=>{return(e.coords.length>1)});
+total = total.concat(total);
 window.total = total;
 window.__slider=0;
 window.__dock=null;
@@ -135,170 +136,254 @@ function RangeHandle(VAR,min,max){
     return VAR
   }
 }
-
+var thres;
 setTimeout(()=>{
   myChart.setOption(option);
   setInterval(()=>{
     if(window.__changed && window.__dock == 0){
       window.__changed = false;
+      thres = window.__slider * 0.5;
       option.series[1].lineStyle.normal.color=(arg)=>{
-        if(arg.dataIndex/option.series[1].data.length < window.__slider){
+        if(arg.dataIndex/option.series[1].data.length < thres){
           return '#01ba48'
         }
         else{
           return '#ffffff'
         }
-      }
+      };
       option.series[2].lineStyle.normal.color=(arg)=>{
-        if(arg.dataIndex/option.series[2].data.length < window.__slider){
+        if(arg.dataIndex/option.series[2].data.length < thres){
           return '#01ba48'
         }
         else{
           return '#ffffff'
         }
-      }
+      };
       option.series[3].lineStyle.normal.color=(arg)=>{
-        if(arg.dataIndex/option.series[3].data.length < window.__slider){
+        if(arg.dataIndex/option.series[3].data.length < thres){
           return '#e2d704'
         }
         else{
           return '#ffffff'
         }
-      }
+      };
       option.series[4].lineStyle.normal.color=(arg)=>{
-        if(arg.dataIndex/option.series[4].data.length < window.__slider){
+        if(arg.dataIndex/option.series[4].data.length < thres){
           return '#7c19df'
         }
         else{
           return '#ffffff'
         }
-      }
+      };
       // option.series = dataGroupOne.concat(dataGroupTwo);
       myChart.setOption(option)
     }else if(window.__changed && window.__dock == 1){
       window.__changed = false;
-      // dataGroupOne.forEach(e=>{
-      //   let H = e.__baseH+15+window.__slider*15;
-      //   if(H > 130){H = 130}
-      //   e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-      //   // return e;
-      // })
-      // dataGroupTwo.forEach(e=>{
-      //   let H = e.__baseH+10+window.__slider*20;
-      //   if(H > 130){H = 130}
-      //   e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-      // })
-      // option.series = dataGroupOne.concat(dataGroupTwo);
-      // myChart.setOption(option)
+      thres = window.__slider * 0.5;
+        option.series[5].lineStyle.normal.color=(arg)=>{
+            if(arg.dataIndex/option.series[5].data.length < thres){
+                return '#7c19df'
+            }
+            else{
+                return '#ffffff'
+            }
+        };
+        option.series[6].lineStyle.normal.color=(arg)=>{
+            if(arg.dataIndex/option.series[6].data.length < thres){
+                return '#e04402'
+            }
+            else{
+                return '#ffffff'
+            }
+        };
+        option.series[7].lineStyle.normal.color=(arg)=>{
+            if(arg.dataIndex/option.series[7].data.length < thres){
+                return '#0daaff'
+            }
+            else{
+                return '#ffffff'
+            }
+        };
+        option.series[8].lineStyle.normal.color=(arg)=>{
+            if(arg.dataIndex/option.series[8].data.length < thres){
+                return '#3003fa'
+            }
+            else{
+                return '#ffffff'
+            }
+        };
+        option.series[9].lineStyle.normal.color=(arg)=>{
+            if(arg.dataIndex/option.series[9].data.length < thres){
+                return '#ef8541'
+            }
+            else{
+                return '#ffffff'
+            }
+        };
+        myChart.setOption(option)
     }else if(window.__changed && window.__dock == 2){
       window.__changed = false;
+
     //   const unit = 1/9;
-    //   switch(parseInt(window.__slider*9)){
-    //     case 0:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH + 100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 1:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 2:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +0 + (window.__slider-2*unit)*800 < 80 ) ? (e.__baseH +0 + (window.__slider-2*unit)*800) : 80;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +0 + (window.__slider-2*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-2*unit)*500) : 50;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 3:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +80 + (window.__slider-3*unit)*300 < 110 ) ? (e.__baseH +80 + (window.__slider-3*unit)*300) : 110;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +50 + (window.__slider-3*unit)*300 < 80 ) ? (e.__baseH +50 + (window.__slider-3*unit)*300) : 80;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 5:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +110 - (window.__slider-5*unit)*300 > 80 ) ? (e.__baseH +110 - (window.__slider-5*unit)*300) : 80;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +80 - (window.__slider-5*unit)*100 > 70 ) ? (e.__baseH +80 - (window.__slider-5*unit)*100) : 70;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 6:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +80 - (window.__slider-6*unit)*600 > 20 ) ? (e.__baseH +80 - (window.__slider-6*unit)*600) : 20;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +70 - (window.__slider-6*unit)*700 > 0 ) ? (e.__baseH +70 - (window.__slider-6*unit)*700) : 0;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 7:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +20 + (window.__slider-7*unit)*600 < 80 ) ? (e.__baseH +20 + (window.__slider-7*unit)*600) : 80;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +0 + (window.__slider-7*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-7*unit)*500) : 50;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //     case 8:
-    //       dataGroupOne.forEach(e=>{
-    //         let H = (e.__baseH +80 + (window.__slider-8*unit)*400 < 120) ? (e.__baseH +80 + (window.__slider-8*unit)*400) : 120;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       dataGroupTwo.forEach(e=>{
-    //         let H = (e.__baseH +50 + (window.__slider-8*unit)*500 < 100) ? (e.__baseH +50 + (window.__slider-8*unit)*500) : 100;
-    //         H = RangeHandle(H,0,130);
-    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-    //       })
-    //       break;
-    //   }
-    //   option.series = dataGroupOne.concat(dataGroupTwo);
-    //   myChart.setOption(option)
+      switch(parseInt(window.__slider*9)){
+        case 0:
+            option.series[1].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres * 0.4){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[2].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[3].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[4].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[5].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[6].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[7].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[8].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+            option.series[9].lineStyle.normal.color=(arg)=>{
+                if(arg.dataIndex/option.series[9].data.length < thres){
+                    return '#ef8541'
+                }
+                else{
+                    return '#ffffff'
+                }
+            };
+          break;
+        case 1:
+
+          break;
+        case 2:
+          // dataGroupOne.forEach(e=>{
+          //   let H = (e.__baseH +0 + (window.__slider-2*unit)*800 < 80 ) ? (e.__baseH +0 + (window.__slider-2*unit)*800) : 80;
+          //   H = RangeHandle(H,0,130);
+          //   e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          // });
+          // dataGroupTwo.forEach(e=>{
+          //   let H = (e.__baseH +0 + (window.__slider-2*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-2*unit)*500) : 50;
+          //   H = RangeHandle(H,0,130);
+          //   e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          // });
+          break;
+        case 3:
+          dataGroupOne.forEach(e=>{
+            let H = (e.__baseH +80 + (window.__slider-3*unit)*300 < 110 ) ? (e.__baseH +80 + (window.__slider-3*unit)*300) : 110;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          dataGroupTwo.forEach(e=>{
+            let H = (e.__baseH +50 + (window.__slider-3*unit)*300 < 80 ) ? (e.__baseH +50 + (window.__slider-3*unit)*300) : 80;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          break;
+        case 5:
+          dataGroupOne.forEach(e=>{
+            let H = (e.__baseH +110 - (window.__slider-5*unit)*300 > 80 ) ? (e.__baseH +110 - (window.__slider-5*unit)*300) : 80;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          dataGroupTwo.forEach(e=>{
+            let H = (e.__baseH +80 - (window.__slider-5*unit)*100 > 70 ) ? (e.__baseH +80 - (window.__slider-5*unit)*100) : 70;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          break;
+        case 6:
+          dataGroupOne.forEach(e=>{
+            let H = (e.__baseH +80 - (window.__slider-6*unit)*600 > 20 ) ? (e.__baseH +80 - (window.__slider-6*unit)*600) : 20;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          dataGroupTwo.forEach(e=>{
+            let H = (e.__baseH +70 - (window.__slider-6*unit)*700 > 0 ) ? (e.__baseH +70 - (window.__slider-6*unit)*700) : 0;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          break;
+        case 7:
+          dataGroupOne.forEach(e=>{
+            let H = (e.__baseH +20 + (window.__slider-7*unit)*600 < 80 ) ? (e.__baseH +20 + (window.__slider-7*unit)*600) : 80;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          dataGroupTwo.forEach(e=>{
+            let H = (e.__baseH +0 + (window.__slider-7*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-7*unit)*500) : 50;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          break;
+        case 8:
+          dataGroupOne.forEach(e=>{
+            let H = (e.__baseH +80 + (window.__slider-8*unit)*400 < 120) ? (e.__baseH +80 + (window.__slider-8*unit)*400) : 120;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          dataGroupTwo.forEach(e=>{
+            let H = (e.__baseH +50 + (window.__slider-8*unit)*500 < 100) ? (e.__baseH +50 + (window.__slider-8*unit)*500) : 100;
+            H = RangeHandle(H,0,130);
+            e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+          });
+          break;
+      }
+      option.series = dataGroupOne.concat(dataGroupTwo);
+      myChart.setOption(option)
     }
 },300)
-},1000)
+},1000);
 
-console.log(dataGroupOne)
-console.log(busLines[13])
+console.log(dataGroupOne);
+console.log(busLines[13]);
 var myChart = echarts.init(document.getElementById('main'));
 var option = {
   bmap: {
@@ -473,7 +558,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -496,7 +581,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -519,7 +604,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -542,7 +627,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -565,7 +650,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -588,7 +673,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -611,7 +696,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -634,7 +719,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
@@ -657,7 +742,7 @@ var option = {
         }
       },
       effect : {
-        constantSpeed: 20,
+        constantSpeed: 40,
         show: true,
         trailLength: 0.1,
         symbolSize: 1.5
