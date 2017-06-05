@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+    <head>
+        <!-- Load the Paper.js library -->
+        <script type="text/javascript" src="paper.js"></script>
+    </head>
+    <body style="height: 100%;margin:0">
+        <!-- <input type="range" min="0.0" max="1.0" value="0.0" step="0.001" onchange="updaeSlider(this.value)" style="">
+        <input type="radio" name="dock" value="s1" checked onchange="updateDock(this.value)">s1</input>
+        <input type="radio" name="dock" value="s2" onchange="updateDock(this.value)">s2</input>
+        <input type="radio" name="dock" value="day" onchange="updateDock(this.value)">day</input> -->
+    	<canvas id="myCanvas" style="width:600px; height:500px; background:#000;"></canvas>
+        <script>
+            var controls = {
+                dock: "S1",
+                slider: 0.0
+            };
+
+            const {ipcRenderer} = require('electron')
+            ipcRenderer.on('setControl',(evt,arg)=>{
+              controls = arg;
+            });
+
+            function updaeSlider(val){
+                controls.slider = val;
+            }
+
+            function updateDock(val){
+                controls.dock = val;
+            }
+
+        </script>
+        <script type="text/paperscript" canvas="myCanvas">
+
+            var COUNT = 500;
+
+            var oldSlider = 0.0;
+            var oldDock = "";
+
+            var pathpoints = [
+                [
+                    [10, 160],
+                    [140, 120],
+                    [270, 160]
+                ],
+                [
+                    [270, 160],
+                    [320, 170],
+                    [320, 120],
+                    [340, 70],
+                    [450, 70],
+                    [470, 160]
+                ],
+                [
+                    [470, 160],
+                    [600, 190]
+                ],
+                [
+                    [470, 160],
+                    [440, 180],
+                    [380, 180],
+                    [320, 170]
+                ],
+                [
+                    [10, 300],
+                    [200, 380],
+                    [600, 330]
+                ],
+                [
+                    [400, 10],
+                    [380, 180],
+                    [80, 600]
+                ],
+                [
+                    [410, 370],
+                    [410, 600]
+                ],
+                [
+                    [140, 10],
+                    [190, 230],
+                    [450, 270],
+                    [580, 10]
+                ],
+                [
+                    [320, 170],
+                    [320, 290]
+                ],
+                [
+                    [450, 270],
+                    [480, 355]
+                ]
+            ];
+
+            var regularCarRatio = 0.8;
+                sharedCarRatio = 0.15;
+                sharedBusRatio = 0.05;
+
+            var regularCars = [];
+            var sharedCars = [];
+            var sharedBuses = [];
+            var carsPool = [];
+            var paths = [];
+
+            for (var i=0; i<pathpoints.length; i++) {
+                var path = new Path();
+                for (var j=0; j<pathpoints[i].length; j++) {
+                    path.add(new Point(pathpoints[i][j]));
+                }
+                path.strokeColor = new Color(1, 1, 1);
+                path.visible = false;
+                path.smooth();
+                paths.push(path);
+            }
+
+
+            function getRandomInt(min, max){
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function shouldStray() {
+                if (Math.random() < 0.002) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            for (var i=0; i<COUNT; i++) {
+                var rectangle = new Shape.Rectangle({
+                    from: [0, 0],
+                    to: [5, 5],
+                    fillColor: "red",
+                    visible: true,
+                    straying: false,
+                    goingToPath: false,
+                    pathOffset: 0,
+                    currentPath: paths[getRandomInt(0, paths.length-1)],
+                    targetPath: null,
+                    targetPathOffset: 0,
+                    pathDirection: 1
+                });
+
+                rectangle.pathOffset = getRandomInt(0, rectangle.currentPath.length-1);
+
+                var randColor = Math.random();
+                if (randColor > 0 && randColor <= regularCarRatio) {
+                    rectangle.fillColor = "red";
+                } else if (randColor > regularCarRatio && randColor <= regularCarRatio + sharedCarRatio) {
+                    rectangle.fillColor = "yellow";
+                } else if (randColor > regularCarRatio + sharedCarRatio && randColor <= 1) {
+                    rectangle.fillColor = "rgb(143, 221, 31)";
+                }
+
+                rectangle.onFrame = function(event) {
+                    if (this.visible) {
+                        this.pathOffset ++;// * 2;
+                        var loc = this.currentPath.getLocationAt(this.pathOffset % this.currentPath.length);
+                        var endDistance = 0;
+                        if (loc) {
+                            this.position = loc.point;
+                            //this.rotation = loc.tangent.angle;
+                        }
+                        //console.log(this.position.getDistance(this.currentPath.getLocationAt(this.currentPath.length).point));
+                        //if (this.pathDirection == 1) {
+                        endDistance = this.position.getDistance(this.currentPath.getLocationAt(this.currentPath.length).point);
+                        //} else {
+                        //    endDistance = this.position.getDistance(this.currentPath.getLocationAt(0).point);
+                        //}
+                        if (endDistance < 1) {
+                            if (this.straying) {
+                                this.currentPath = this.targetPath;
+                                this.pathOffset = this.targetPathOffset;
+                                this.straying = false;
+                            } else {
+                                this.pathDirection = -this.pathDirection;
+                            }
+                        }
+                        if (this.straying == false && this.goingToPath == false && shouldStray()) {
+                            this.straying = true;
+                            this.currentPath = new Path();
+                            this.targetPath = paths[getRandomInt(0, paths.length-1)];
+                            this.targetPathOffset = getRandomInt(0, this.targetPath.length-1);
+                            this.currentPath.add(new Point([this.position.x, this.position.y]), this.targetPath.getLocationAt(this.targetPathOffset).point);
+                            this.currentPath.visible = false;
+                            this.pathOffset = 0;
+                        }
+                    }
+                }
+
+                if (rectangle.fillColor == "red") {
+                    regularCars.push(rectangle);
+                } else if (rectangle.fillColor == "yellow") {
+                    sharedCars.push(rectangle);
+                } else if (rectangle.fillColor == "rgb(143, 221, 31)") {
+                    sharedBuses.push(rectangle);
+                }
+
+                carsPool.push(rectangle);
+
+            }
+
+            function onFrame(event) {
+                if (event.count % 10 == 0) {
+
+                    if (controls.dock == "S1") {
+                        regularCarRatio = 0.96 - controls.slider * 0.3;
+                        sharedCarRatio = 0.02 + controls.slider * 0.15;
+                        sharedBusRatio = 0.02 + controls.slider * 0.15;
+                    } else if (controls.dock == "S2") {
+                        regularCarRatio = 0.66 - controls.slider * 0.45;
+                        sharedCarRatio = 0.17 + controls.slider * 0.05;
+                        sharedBusRatio = 0.17 + controls.slider * 0.4;
+                    }
+
+                    targetRegularCar = Math.round(COUNT * regularCarRatio);
+                    targetSharedCar = Math.round(COUNT * sharedCarRatio);
+                    targetSharedBus = Math.round(COUNT * sharedBusRatio);
+
+                    carsPool = [];
+
+                    var oldRegularCar= regularCars.length;
+                    var oldSharedCar= sharedCars.length;
+                    var oldSharedBus= sharedBuses.length;
+
+                    if (targetRegularCar < oldRegularCar) {
+                        for (var i=0; i<oldRegularCar - targetRegularCar; i++) {
+                            carsPool.push(regularCars.pop());
+                        }
+                    }
+                    if (targetSharedCar < oldSharedCar) {
+                        for (var i=0; i<oldSharedCar - targetSharedCar; i++) {
+                            carsPool.push(sharedCars.pop());
+                        }
+                    }
+                    if (targetSharedBus < oldSharedBus) {
+                        for (var i=0; i<oldSharedBus - targetSharedBus; i++) {
+                            carsPool.push(sharedBuses.pop());
+                        }
+                    }
+
+                    var oldRegularCar= regularCars.length;
+                    var oldSharedCar= sharedCars.length;
+                    var oldSharedBus= sharedBuses.length;
+
+                    while (targetSharedBus > oldSharedBus) {
+                        if (carsPool.length > 0) {
+                            car = carsPool.pop();
+                            car.fillColor = "rgb(143, 221, 31)";
+                            sharedBuses.push(car);
+                        } else {
+                            break;
+                        }
+                    }
+
+                    while (targetRegularCar > oldRegularCar) {
+                        if (carsPool.length > 0) {
+                            car = carsPool.pop();
+                            car.fillColor = "red";
+                            regularCars.push(car);
+                        } else {
+                            break;
+                        }
+                    }
+
+                    while (targetSharedCar > oldSharedCar) {
+                        if (carsPool.length > 0) {
+                            car = carsPool.pop();
+                            car.fillColor = "yellow";
+                            sharedCars.push(car);
+                        } else {
+                            break;
+                        }
+                    }
+
+                    var oldRegularCar= regularCars.length;
+                    var oldSharedCar= sharedCars.length;
+                    var oldSharedBus= sharedBuses.length;
+
+
+                    console.log(oldRegularCar, oldSharedCar, oldSharedBus);
+
+                }
+
+            }
+
+        </script>
+    </body>
+</html>

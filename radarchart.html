@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket demo</title>
+        <meta charset="utf-8">
+        <!-- 引入 ECharts 文件 -->
+        <script src="echarts.js"></script>
+    </head>
+    <body >
+        <!-- <input type="range" min="0.0" max="1.0" value="0.0" step="0.001" onchange="updaeSlider(this.value)" style="">
+        <input type="radio" name="dock" value="S1" checked onchange="updateDock(this.value)">S1</input>
+        <input type="radio" name="dock" value="S2" onchange="updateDock(this.value)">S2</input>
+        <input type="radio" name="dock" value="Day" onchange="updateDock(this.value)">Day</input> -->
+
+        <div id="radar-bar-chart-container" style="background:#000">
+            <canvas id="myCanvas" width="600" height="600" style="position: absolute"></canvas>
+            <div id="radar-chart" style="width: 500px;height:500px; padding-left:50px;padding-top:50px;"></div>
+            <div id="bar-chart" style="width: 570px;height:300px;padding-top:50px;"></div>
+        </div>
+
+        <script type="text/javascript">
+            var c=document.getElementById("myCanvas");
+            var cxt=c.getContext("2d");
+            cxt.strokeStyle="#ffffff";
+            cxt.beginPath();
+            cxt.arc(300,300,280,3*Math.PI/2 + 0.2,2.2*Math.PI/3 + 0.1 ,true);
+            cxt.stroke();
+            cxt.beginPath();
+            cxt.arc(300,300,280,2*Math.PI-0.4, 15*Math.PI/9 - 0.05,true);
+            cxt.stroke();
+            cxt.beginPath();
+            cxt.arc(300,300,280,Math.PI-1.0, Math.PI*2-0.15,true);
+            cxt.stroke();
+
+            cxt.fillStyle = "#ffffff"
+            cxt.font="20px Helvetica";
+            cxt.fillText("City",50,90);
+            cxt.fillText("Enterprise",510,90);
+            cxt.fillText("Individuals",480,550);
+        </script>
+
+        <script>
+            var radarChart = echarts.init(document.getElementById('radar-chart'));
+            var barChart = echarts.init(document.getElementById('bar-chart'));
+
+            var controls = {
+                dock: "S1",
+                slider: 0.0
+            };
+
+            const {ipcRenderer} = require('electron')
+            ipcRenderer.on('setControl',(evt,arg)=>{
+              controls = arg;
+            });
+
+            function updaeSlider(val){
+                controls.slider = val;
+            }
+
+            function updateDock(val){
+                controls.dock = val;
+            }
+
+
+
+            var userAmount = 0.0,
+                serviceCoverageArea = 0.0,
+                serviceTypes = 0.0,
+                vehicleTotalAmount = 10.0,
+                time = 0;
+
+            var numVehiclesBase = 100,
+                newEnergyVehiclesRatioBase = 0,
+                roadUtilizationBase = 45,
+                parkingPressureBase = 87,
+                trafficLightsIntelligenceBase = 1,
+                cityScaleBase = 48,
+                travelSeamlessnessBase = 10,
+                crossServiceIntegrationBase = 10,
+                transportationServicesAccesibilityBase = 40,
+                travelCostBase = 60,
+                travelTimeBase = 63,
+                serviceCostBase = 70,
+                serviceQualityBase = 20;
+
+            var numVehicles = 100,
+                newEnergyVehiclesRatio = 0,
+                roadUtilization = 45,
+                parkingPressure = 87,
+                trafficLightsIntelligence = 1,
+                cityScale = 48,
+                travelSeamlessness = 10,
+                crossServiceIntegration = 10,
+                transportationServicesAccesibility = 40,
+                travelCost = 60,
+                travelTime = 63,
+                serviceCost = 70,
+                serviceQuality = 10;
+
+            function updateRadarChart(){
+
+                numVehicles = vehicleTotalAmount * 10;
+                roadUtilization = roadUtilizationBase + userAmount * serviceCoverageArea / 100 * 40;
+                parkingPressure = parkingPressureBase - serviceTypes * userAmount / vehicleTotalAmount * 2.5;
+                trafficLightsIntelligence = userAmount * serviceCoverageArea / 100 * 90;
+                cityScale = serviceCoverageArea * 9.5;
+                travelSeamlessness = travelSeamlessnessBase + serviceTypes * serviceCoverageArea / 100 * 80;
+                crossServiceIntegration = crossServiceIntegrationBase + serviceTypes * 5;
+                transportationServicesAccesibility = transportationServicesAccesibilityBase + serviceCoverageArea * 4;
+                travelCost = travelCostBase - userAmount * serviceCoverageArea / 100 * 40;
+                travelTime = travelTimeBase - userAmount * serviceCoverageArea / 100 * 35;
+                serviceCost = serviceCostBase - time * 3;
+                serviceQuality = serviceQualityBase + time * 3;
+
+                if(controls.dock == "S2") {
+                    newEnergyVehiclesRatio = 34 * controls.slider;
+                }
+
+                var dataBJ = [
+                    [
+                        numVehicles,
+                        newEnergyVehiclesRatio,
+                        roadUtilization,
+                        parkingPressure,
+                        trafficLightsIntelligence,
+                        cityScale,
+                        travelSeamlessness,
+                        crossServiceIntegration,
+                        transportationServicesAccesibility,
+                        travelCost,
+                        travelTime,
+                        serviceCost,
+                        serviceQuality
+                    ]
+                ];
+
+                var lineStyle = {
+                    normal: {
+                        width: 2.5,
+                        opacity: 1.0
+                    }
+                };
+
+                option = {
+                    backgroundColor: '#000',
+                    radar: {
+                        indicator: [
+                            {name: '# Vehicles', max: 100},
+                            {name: 'New energy\nvehicles ratio', max: 100},
+                            {name: 'Road\nutilization', max: 100},
+                            {name: 'Parking\npressure', max: 100},
+                            {name: 'Traffic\nlights\nintelligence', max: 100},
+                            {name: 'City scale\n& activation', max: 100},
+                            {name: 'Seamlessness\nof travel', max: 100},
+                            {name: 'Cross-service\nintegration', max: 100},
+                            {name: 'Transportation\nservices\naccessibility', max: 100},
+                            {name: 'Travel cost', max: 100},
+                            {name: 'Travel\ntime', max: 100},
+                            {name: 'Service cost', max: 100},
+                            {name: 'Service quality', max: 100}
+                        ],
+                        shape: 'circle',
+                        splitNumber: 5,
+                        name: {
+                            textStyle: {
+                                color: 'rgb(227, 227, 227)',
+                                width: "80px"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: [
+                                    'rgba(227, 227, 227, 0.25)', 'rgba(227, 227, 227, 0.4)',
+                                    'rgba(227, 227, 227, 0.55)', 'rgba(227, 227, 227, 0.7)',
+                                    'rgba(227, 227, 227, 0.85)', 'rgba(227, 227, 227, 1)'
+                                ]
+                            }
+                        },
+                        splitArea: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: 'rgba(227, 227, 227, 0.5)'
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: '',
+                            type: 'radar',
+                            lineStyle: lineStyle,
+                            data: dataBJ,
+                            symbol: 'none',
+                            itemStyle: {
+                                normal: {
+                                    color: '#30A8DB'
+                                }
+                            },
+                            areaStyle: {
+                                normal: {
+                                    opacity: 0.3
+                                }
+                            }
+                        }
+
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                radarChart.setOption(option);
+                setTimeout(updateRadarChart, 300);
+            }
+
+            function updateBarChart(){
+                if (controls.dock == "S1") {
+                    serviceTypes = 3;
+                    vehicleTotalAmount = 10.0 - controls.slider * 2.5;
+                    time = controls.slider * 5.0;
+                    userAmount = controls.slider * 4;
+                    serviceCoverageArea = controls.slider * 4.3;
+                } else if (controls.dock == "S2") {
+                    serviceTypes = 10;
+                    vehicleTotalAmount = 7.5 - controls.slider * 2.1;
+                    time = 5 + controls.slider * 5.0;
+                    userAmount = 4 + controls.slider * 6;
+                    serviceCoverageArea = 4.3 + controls.slider * 5.7;
+                }
+
+                option = {
+                    color: ['#3398DB'],
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : ['User Amount', 'Service\nCoverage\nArea', 'Service\nTypes', 'Vehicle\nTotal\nAmount', 'Time'],
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#ffffff',//坐标值得具体的颜色
+                                }
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.7)',//坐标值得具体的颜色
+                                }
+                            },
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            min : 0.0,
+                            max : 10.0,
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#000000',//坐标值得具体的颜色
+                                }
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.7)',//坐标值得具体的颜色
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgba(255, 255, 255, 0.3)',//坐标值得具体的颜色
+                                }
+                            }
+                        }
+                    ],
+
+                    series: [
+                        {
+                            name:'直接访问',
+                            type:'bar',
+                            barWidth: '60%',
+                            data:[userAmount, serviceCoverageArea, serviceTypes, vehicleTotalAmount, time],
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top',
+                                    formatter: function(a, b, c) {
+                                        if (a.name == 'User Amount') {
+                                            return Math.round(a.value * 12451);
+                                        } else if (a.name == 'Service\nCoverage\nArea') {
+                                            return Math.round(a.value * 3785);
+                                        } else if (a.name == 'Service\nTypes') {
+                                            return Math.round(a.value);
+                                        } else if (a.name == 'Vehicle\nTotal\nAmount') {
+                                            return Math.round(a.value * 10243);
+                                        } else if (a.name == 'Time') {
+                                            return Math.round(a.value * 69);
+                                        }
+                                    }
+                                }
+                            },
+                            barWidth: "20%"
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                barChart.setOption(option);
+                setTimeout(updateBarChart, 300);
+            }
+
+            updateRadarChart();
+            updateBarChart();
+
+        </script>
+    </body>
+</html>

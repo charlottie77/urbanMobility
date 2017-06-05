@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Smart Urban</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DGTkQhfL9hF1KQhZfOML4Xpcl5aaK1rj"></script>
+    <script src='echarts/echarts.js'></script>
+    <script src="echarts/extension/bmap.min.js"></script>
+    <style>
+      html{
+        background: black;
+      }
+      .anchorBL{
+        display: none
+      }
+    </style>
+  </head>
+  <body id='body' style="margin:0">
+    <div id="main" style="height: 100%; width: 100%"></div>
+  </body>
+  <script src='maptastic.js'></script>
+  <script>
+    Maptastic('main')
+    let busLines = require('./data/共享小车-郊区.json')
+    let dataGroupOne = require('./data/1.group.json');
+    let dataGroupTwo = require('./data/2.group.json');
+    // busLines = busLines.concat(require('./data/2.json'))
+    // You can also require other files to run in this process
+    require('./renderer_AB.js')
+  </script>
+</html>
