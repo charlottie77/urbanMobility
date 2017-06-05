@@ -26,13 +26,14 @@ WSclient.on('connect', function(connection) {
             radar.webContents.send('setControl', JSON.parse(message.utf8Data));
             bar3D.webContents.send('setControl', JSON.parse(message.utf8Data));
             scatter.webContents.send('setControl', JSON.parse(message.utf8Data));
+            trafficJam.webContents.send('setControl',JSON.parse(message.utf8Data));
         }
     });
 });
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+// let mainWindow
 let agentBase
 let trafficJam
 let radar
@@ -45,6 +46,7 @@ function createWindow () {
   radar = new BrowserWindow({width: 630, height: 900,backgroundColor: '#000000',frame:false,thickFrame:false})
   bar3D = new BrowserWindow({width: 630, height: 400,backgroundColor: '#ffffff',frame:false,thickFrame:false})
   scatter = new BrowserWindow({width: 600, height: 500,backgroundColor: '#000000',frame:false,thickFrame:false});
+  trafficJam = new BrowserWindow({width:600,height:600,backgroundColor:'#000000'});
   // no2Window = new BrowserWindow({width:1366,height:768})
   // and load the index.html of the app.
   agentBase.loadURL(url.format({
@@ -64,6 +66,11 @@ function createWindow () {
   }))
   scatter.loadURL(url.format({
     pathname: path.join(__dirname, 'scatter.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  trafficJam.loadURL(url.format({
+    pathname: path.join(__dirname, 'trafficJam.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -107,6 +114,7 @@ function createWindow () {
   radar.on('closed',function(){radar = null})
   bar3D.on('closed',()=>{bar3D = null})
   scatter.on('closed',()=>{scatter = null})
+  trafficJam.on('closed',()=>{scatter = null})
 }
 
 // This method will be called when Electron has finished
