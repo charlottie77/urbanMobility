@@ -136,145 +136,166 @@ function RangeHandle(VAR,min,max){
   }
 }
 
-// setTimeout(()=>{
-//   myChart.setOption(option);
-//   setInterval(()=>{
-//     if(window.__changed && window.__dock == 0){
-//       window.__changed = false;
-//       dataGroupOne.forEach(e=>{
-//         let H = e.__baseH+window.__slider*15;
-//         if(H > 130){H = 130}
-//         e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-//         // return e;
-//       })
-//       dataGroupTwo.forEach(e=>{
-//         let H = e.__baseH+window.__slider*10;
-//         if(H > 130){H = 130}
-//         e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-//       })
-//       option.series = dataGroupOne.concat(dataGroupTwo);
-//       myChart.setOption(option)
-//     }else if(window.__changed && window.__dock == 1){
-//       window.__changed = false;
-//       dataGroupOne.forEach(e=>{
-//         let H = e.__baseH+15+window.__slider*15;
-//         if(H > 130){H = 130}
-//         e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-//         // return e;
-//       })
-//       dataGroupTwo.forEach(e=>{
-//         let H = e.__baseH+10+window.__slider*20;
-//         if(H > 130){H = 130}
-//         e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
-//       })
-//       option.series = dataGroupOne.concat(dataGroupTwo);
-//       myChart.setOption(option)
-//     }else if(window.__changed && window.__dock == 2){
-//       window.__changed = false;
-//       const unit = 1/9;
-//       switch(parseInt(window.__slider*9)){
-//         case 0:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH + 100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 1:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 2:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +0 + (window.__slider-2*unit)*800 < 80 ) ? (e.__baseH +0 + (window.__slider-2*unit)*800) : 80;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +0 + (window.__slider-2*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-2*unit)*500) : 50;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 3:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +80 + (window.__slider-3*unit)*300 < 110 ) ? (e.__baseH +80 + (window.__slider-3*unit)*300) : 110;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +50 + (window.__slider-3*unit)*300 < 80 ) ? (e.__baseH +50 + (window.__slider-3*unit)*300) : 80;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 5:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +110 - (window.__slider-5*unit)*300 > 80 ) ? (e.__baseH +110 - (window.__slider-5*unit)*300) : 80;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +80 - (window.__slider-5*unit)*100 > 70 ) ? (e.__baseH +80 - (window.__slider-5*unit)*100) : 70;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 6:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +80 - (window.__slider-6*unit)*600 > 20 ) ? (e.__baseH +80 - (window.__slider-6*unit)*600) : 20;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +70 - (window.__slider-6*unit)*700 > 0 ) ? (e.__baseH +70 - (window.__slider-6*unit)*700) : 0;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 7:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +20 + (window.__slider-7*unit)*600 < 80 ) ? (e.__baseH +20 + (window.__slider-7*unit)*600) : 80;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +0 + (window.__slider-7*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-7*unit)*500) : 50;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//         case 8:
-//           dataGroupOne.forEach(e=>{
-//             let H = (e.__baseH +80 + (window.__slider-8*unit)*400 < 120) ? (e.__baseH +80 + (window.__slider-8*unit)*400) : 120;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           dataGroupTwo.forEach(e=>{
-//             let H = (e.__baseH +50 + (window.__slider-8*unit)*500 < 100) ? (e.__baseH +50 + (window.__slider-8*unit)*500) : 100;
-//             H = RangeHandle(H,0,130);
-//             e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
-//           })
-//           break;
-//       }
-//       option.series = dataGroupOne.concat(dataGroupTwo);
-//       myChart.setOption(option)
-//     }
-// },300)
-// },1000)
+setTimeout(()=>{
+  myChart.setOption(option);
+  setInterval(()=>{
+    if(window.__changed && window.__dock == 0){
+      window.__changed = false;
+      option.series[1].lineStyle.normal.color=(arg)=>{
+        if(arg.dataIndex/option.series[1].data.length < window.__slider){
+          return '#01ba48'
+        }
+        else{
+          return '#ffffff'
+        }
+      }
+      option.series[2].lineStyle.normal.color=(arg)=>{
+        if(arg.dataIndex/option.series[2].data.length < window.__slider){
+          return '#01ba48'
+        }
+        else{
+          return '#ffffff'
+        }
+      }
+      option.series[3].lineStyle.normal.color=(arg)=>{
+        if(arg.dataIndex/option.series[3].data.length < window.__slider){
+          return '#e2d704'
+        }
+        else{
+          return '#ffffff'
+        }
+      }
+      option.series[4].lineStyle.normal.color=(arg)=>{
+        if(arg.dataIndex/option.series[4].data.length < window.__slider){
+          return '#7c19df'
+        }
+        else{
+          return '#ffffff'
+        }
+      }
+      // option.series = dataGroupOne.concat(dataGroupTwo);
+      myChart.setOption(option)
+    }else if(window.__changed && window.__dock == 1){
+      window.__changed = false;
+      // dataGroupOne.forEach(e=>{
+      //   let H = e.__baseH+15+window.__slider*15;
+      //   if(H > 130){H = 130}
+      //   e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
+      //   // return e;
+      // })
+      // dataGroupTwo.forEach(e=>{
+      //   let H = e.__baseH+10+window.__slider*20;
+      //   if(H > 130){H = 130}
+      //   e.lineStyle.normal.color = 'hsl('+ H + ',50%,50%)';
+      // })
+      // option.series = dataGroupOne.concat(dataGroupTwo);
+      // myChart.setOption(option)
+    }else if(window.__changed && window.__dock == 2){
+      window.__changed = false;
+    //   const unit = 1/9;
+    //   switch(parseInt(window.__slider*9)){
+    //     case 0:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH + 100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +100 - (window.__slider-0*unit)*600 > 40) ? (e.__baseH +100 - (window.__slider-0*unit)*600) : 40;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 1:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +40 - (window.__slider-1*unit)*400 > 0 ) ? (e.__baseH +40 - (window.__slider-1*unit)*400) : 0;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 2:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +0 + (window.__slider-2*unit)*800 < 80 ) ? (e.__baseH +0 + (window.__slider-2*unit)*800) : 80;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +0 + (window.__slider-2*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-2*unit)*500) : 50;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 3:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +80 + (window.__slider-3*unit)*300 < 110 ) ? (e.__baseH +80 + (window.__slider-3*unit)*300) : 110;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +50 + (window.__slider-3*unit)*300 < 80 ) ? (e.__baseH +50 + (window.__slider-3*unit)*300) : 80;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 5:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +110 - (window.__slider-5*unit)*300 > 80 ) ? (e.__baseH +110 - (window.__slider-5*unit)*300) : 80;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +80 - (window.__slider-5*unit)*100 > 70 ) ? (e.__baseH +80 - (window.__slider-5*unit)*100) : 70;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 6:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +80 - (window.__slider-6*unit)*600 > 20 ) ? (e.__baseH +80 - (window.__slider-6*unit)*600) : 20;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +70 - (window.__slider-6*unit)*700 > 0 ) ? (e.__baseH +70 - (window.__slider-6*unit)*700) : 0;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 7:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +20 + (window.__slider-7*unit)*600 < 80 ) ? (e.__baseH +20 + (window.__slider-7*unit)*600) : 80;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +0 + (window.__slider-7*unit)*500 < 50 ) ? (e.__baseH +0 + (window.__slider-7*unit)*500) : 50;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //     case 8:
+    //       dataGroupOne.forEach(e=>{
+    //         let H = (e.__baseH +80 + (window.__slider-8*unit)*400 < 120) ? (e.__baseH +80 + (window.__slider-8*unit)*400) : 120;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       dataGroupTwo.forEach(e=>{
+    //         let H = (e.__baseH +50 + (window.__slider-8*unit)*500 < 100) ? (e.__baseH +50 + (window.__slider-8*unit)*500) : 100;
+    //         H = RangeHandle(H,0,130);
+    //         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
+    //       })
+    //       break;
+    //   }
+    //   option.series = dataGroupOne.concat(dataGroupTwo);
+    //   myChart.setOption(option)
+    }
+},300)
+},1000)
 
 console.log(dataGroupOne)
 console.log(busLines[13])
@@ -421,6 +442,8 @@ var option = {
   },
   series:[
     {
+      __NO:0,
+      __NAME:'总图',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -435,6 +458,8 @@ var option = {
       },
     },
     {
+      __NO:1,
+      __NAME:'共享小车郊区',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -456,6 +481,8 @@ var option = {
       zlevel: 1,
     },
     {
+      __NO:2,
+      __NAME:'共享小车城区',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -474,9 +501,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 2,
     },
     {
+      __NO:3,
+      __NAME:'共享大车',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -495,9 +524,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 3,
     },
     {
+      __NO:4,
+      __NAME:'公务小车阶段一',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -516,9 +547,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 4,
     },
     {
+      __NO:5,
+      __NAME:'公务小车阶段二',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -537,9 +570,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 5,
     },
     {
+      __NO:6,
+      __NAME:'无人车',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -558,9 +593,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 6,
     },
     {
+      __NO:7,
+      __NAME:'小区小车',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -579,9 +616,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 7,
     },
     {
+      __NO:8,
+      __NAME:'小区大车',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -600,9 +639,11 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 8,
     },
     {
+      __NO:9,
+      __NAME:'TOB',
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -621,7 +662,7 @@ var option = {
         trailLength: 0.1,
         symbolSize: 1.5
       },
-      zlevel: 1,
+      zlevel: 9,
     }
   ]
   // series:dataGroupOne.concat(dataGroupTwo).map(e=>{
@@ -637,28 +678,35 @@ var option = {
 }
 
 myChart.setOption(option)
-console.log(option)
+// console.log(option)
 
-window.changeData = function  () {
-  // option.series[1].data=total.randomShift(80);
-  // ipcRenderer.send('randShift',20);
-  option.series[1].lineStyle.normal.color=(arg)=>{
-    return 'hsl('+arg.dataIndex+',50%,50%)'
-  }
-  myChart.setOption({series:option.series});
-  // ipcRenderer.once('randShiftCB',(evt,arg)=>{
-  //   console.log(arg.length)
-  //   // option.series[1].data = arg;
-  //   // myChart.setOption({series:option.series});
-  // });
+window.onresize=()=>{myChart.resize()}
 
-}
-ipcRenderer.on('randShiftCB',(evt,arg)=>{
-  // console.log(arg.length)
-  option.series[1].data = arg;
-  option.series[1].lineStyle.normal.color='#ff0000';
-  myChart.setOption({series:option.series});
-});
+// window.changeData = function  () {
+//   // option.series[1].data=total.randomShift(80);
+//   // ipcRenderer.send('randShift',20);
+//   option.series[1].lineStyle.normal.color=(arg)=>{
+//     if(arg.dataIndex/option.series[1].data.length < window.__slider*0.7)
+//     return '#01ba48'
+//   }
+//   myChart.setOption({series:option.series});
+//   // ipcRenderer.once('randShiftCB',(evt,arg)=>{
+//   //   console.log(arg.length)
+//   //   // option.series[1].data = arg;
+//   //   // myChart.setOption({series:option.series});
+//   // });
+//
+// }
+// ipcRenderer.on('randShiftCB',(evt,arg)=>{
+//   // console.log(arg.length)
+//   option.series[1].data = arg;
+//   option.series[1].lineStyle.normal.color='#ff0000';
+//   myChart.setOption({series:option.series});
+// });
+
+// ipcRenderer.on('msgtest',(evt,arg)=>{
+//   console.log(arg);
+// })
 // setInterval(()=>{
 //   ipcRenderer.send('randShift',{arr:[1,2,3,4],num:2})
 // },2000);

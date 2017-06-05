@@ -11,17 +11,22 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+// let no2Window
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1366, height: 768})
-
+  mainWindow = new BrowserWindow({width: 1066, height: 600})
+  // no2Window = new BrowserWindow({width:1366,height:768})
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
+  // no2Window.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }))
 const total = require('./data/total.group.json');
 ipcMain.on('randShift',(event,arg)=>{
   let copy = Array.from(total)
@@ -33,6 +38,18 @@ ipcMain.on('randShift',(event,arg)=>{
   event.sender.send('randShiftCB',rtn);
 })
 
+  // mainWindow.webContents.on('did-finish-load', () => {
+  //   setInterval(()=>{
+  //     mainWindow.webContents.send('msgtest', 'whoooooooh!')
+  //   },300);
+  //
+  // })
+
+  // no2Window.webContents.on('did-finish-load', () => {
+  //   setInterval(()=>{
+  //     no2Window.webContents.send('msgtest', 'no2!')
+  //   },300);
+  // })
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
