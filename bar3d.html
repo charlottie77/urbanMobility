@@ -14,8 +14,21 @@
         <!-- <div id="container" style="background:#000"> -->
             <!-- <canvas id="myCanvas" width="600" height="600" style="position: absolute"></canvas> -->
 
-            <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:60px; font-weight:100; position:absolute; top:10%; left:10%;">CITY ACTIVATION</div>
-            <div id="bar3d-border" style="position:absolute; left:5%; top:5%; width:90%; height:90%; border:2px solid #fff; border-radius:100px;"></div>
+            <div id="bar3d-label" style="color:#fff; font-family:Helvetica; font-size:60px; font-weight:100; position:absolute; top:10%; left:10%;">CITY ACTIVATION</div>
+            <div id="bar3d-border" style="position:absolute; left:5%; top:5%; width:90%; height:90%; border:3px solid #999; border-radius:60px;"></div>
+            <div id="bar3d-legend" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; bottom:10%; right:10%;">
+                <div style="display:block; color:#fff; font-family:Helvetica; font-size:18px; font-weight:400; padding-bottom:6px;">
+                    <div style="background:#ffa; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
+                    <span id="service-1">Current Activation</span>
+                    <br />
+
+                    <div style="background:#666; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
+                    <span id="service-1">Peak Activation</span>
+                    <br />
+                </div>
+            </div>
+
+            
 
     <div id="3d-chart" style="width:100%;height:100%; margin-top: -100px;"></div>
 

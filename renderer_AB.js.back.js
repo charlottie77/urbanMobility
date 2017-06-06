@@ -413,7 +413,7 @@ var option = {
         normal: {
           color: '#ffffff',
           opacity: 0.1,
-          width: 1
+          width: 3
         }
       },
     },
