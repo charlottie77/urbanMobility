@@ -44,7 +44,7 @@ function createWindow () {
   // Create the browser window.
   agentBase = new BrowserWindow({width: 1066, height: 600,backgroundColor: '#000000',frame:false,thickFrame:false})
   radar = new BrowserWindow({width: 630, height: 900,backgroundColor: '#000000',frame:false,thickFrame:false})
-  bar3D = new BrowserWindow({width: 630, height: 400,backgroundColor: '#ffffff',frame:false,thickFrame:false})
+  bar3D = new BrowserWindow({width: 630, height: 400,backgroundColor: '#000000',frame:false,thickFrame:false})
   scatter = new BrowserWindow({width: 600, height: 500,backgroundColor: '#000000',frame:false,thickFrame:false});
   trafficJam = new BrowserWindow({width:600,height:600,backgroundColor:'#000000'});
   // no2Window = new BrowserWindow({width:1366,height:768})
