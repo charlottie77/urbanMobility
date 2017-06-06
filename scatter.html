@@ -4,12 +4,14 @@
         <!-- Load the Paper.js library -->
         <script type="text/javascript" src="paper.js"></script>
     </head>
-    <body style="height: 100%;margin:0">
+    <body style="height: 100%;margin:0; background:#000;">
         <!-- <input type="range" min="0.0" max="1.0" value="0.0" step="0.001" onchange="updaeSlider(this.value)" style="">
         <input type="radio" name="dock" value="s1" checked onchange="updateDock(this.value)">s1</input>
         <input type="radio" name="dock" value="s2" onchange="updateDock(this.value)">s2</input>
         <input type="radio" name="dock" value="day" onchange="updateDock(this.value)">day</input> -->
-    	<canvas id="myCanvas" style="width:600px; height:500px; background:#000;"></canvas>
+    	<canvas id="myCanvas" style="width:600px; height:500px; background:#000; padding-left: 50px;padding-top: 50px;"></canvas>
+        <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:65px; left:65px;">ROAD UTILIZATION</div>
+        <div id="scatter-border" style="position:absolute; left:10px; top:10px; width:700px; height:630px; border:2px solid #fff; border-radius:50px;"></div>
         <script>
             var controls = {
                 dock: "S1",
