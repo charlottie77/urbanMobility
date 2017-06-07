@@ -9,23 +9,23 @@
         <input type="radio" name="dock" value="s1" checked onchange="updateDock(this.value)">s1</input>
         <input type="radio" name="dock" value="s2" onchange="updateDock(this.value)">s2</input>
         <input type="radio" name="dock" value="day" onchange="updateDock(this.value)">day</input> -->
-        <div id="scatter-square" style="position:absolute; left:90px; top:90px; width:380px; height:380px; border:2px solid #fff; background: #0f0; opacity: 0.15;"></div>
+        <div id="scatter-square" style="position:absolute; left:90px; top:90px; width:380px; height:380px; border:2px solid #fff; background: #01ba48; opacity: 0.15;"></div>
         <div id="scatter-square" style="position:absolute; left:90px; top:90px; width:380px; height:380px; border:2px solid #fff; opacity: 0.3;"></div>
     	<canvas id="myCanvas" style="width:600px; height:500px; background:#000; padding-left: 50px;padding-top: 50px;"></canvas>
         <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:10%; left:10%;">ROAD UTILIZATION</div>
         <div id="scatter-border" style="position:absolute; left:5%; top:5%; width:90%; height:90%; border:2px solid #999; border-radius:30px;"></div>
         <div id="scatter-legend" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; bottom:10%; right:10%;">
             <div style="display:block; color:#fff; font-family:Helvetica; font-size:18px; font-weight:400; padding-bottom:6px;">
-                <div style="background:#f00; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
+                <div style="background:#e04402; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                 <span id="service-1">Private vehicles</span>
                 <br />
 
-                <div style="background:#ff0; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
-                <span id="service-1">Public cars</span>
+                <div style="background:#e2d704; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
+                <span id="service-1">ATS cars</span>
                 <br />
 
-                <div style="background:#0f0; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
-                <span id="service-1">Public buses</span>
+                <div style="background:#01ba48; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
+                <span id="service-1">ATS buses</span>
                 <br />
             </div>
         </div>
@@ -152,7 +152,7 @@
                 var rectangle = new Shape.Rectangle({
                     from: [0, 0],
                     to: [5, 5],
-                    fillColor: "red",
+                    fillColor: "#e04402",
                     visible: true,
                     straying: false,
                     goingToPath: false,
@@ -167,11 +167,11 @@
 
                 var randColor = Math.random();
                 if (randColor > 0 && randColor <= regularCarRatio) {
-                    rectangle.fillColor = "red";
+                    rectangle.fillColor = "#e04402";
                 } else if (randColor > regularCarRatio && randColor <= regularCarRatio + sharedCarRatio) {
-                    rectangle.fillColor = "yellow";
+                    rectangle.fillColor = "#e2d704";
                 } else if (randColor > regularCarRatio + sharedCarRatio && randColor <= 1) {
-                    rectangle.fillColor = "rgb(143, 221, 31)";
+                    rectangle.fillColor = "#01ba48";
                 }
 
                 rectangle.onFrame = function(event) {
@@ -210,11 +210,11 @@
                     }
                 }
 
-                if (rectangle.fillColor == "red") {
+                if (rectangle.fillColor == "#e04402") {
                     regularCars.push(rectangle);
-                } else if (rectangle.fillColor == "yellow") {
+                } else if (rectangle.fillColor == "#e2d704") {
                     sharedCars.push(rectangle);
-                } else if (rectangle.fillColor == "rgb(143, 221, 31)") {
+                } else if (rectangle.fillColor == "#01ba48") {
                     sharedBuses.push(rectangle);
                 }
 
@@ -270,7 +270,7 @@
                     while (targetSharedBus > oldSharedBus) {
                         if (carsPool.length > 0) {
                             car = carsPool.pop();
-                            car.fillColor = "rgb(143, 221, 31)";
+                            car.fillColor = "#01ba48";
                             sharedBuses.push(car);
                         } else {
                             break;
@@ -280,7 +280,7 @@
                     while (targetRegularCar > oldRegularCar) {
                         if (carsPool.length > 0) {
                             car = carsPool.pop();
-                            car.fillColor = "red";
+                            car.fillColor = "#e04402";
                             regularCars.push(car);
                         } else {
                             break;
@@ -290,7 +290,7 @@
                     while (targetSharedCar > oldSharedCar) {
                         if (carsPool.length > 0) {
                             car = carsPool.pop();
-                            car.fillColor = "yellow";
+                            car.fillColor = "#e2d704";
                             sharedCars.push(car);
                         } else {
                             break;
