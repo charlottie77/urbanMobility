@@ -393,7 +393,7 @@ var option = {
         normal: {
           color: '#ffffff',
           opacity: 0.1,
-          width: 0.1
+          width: 0.5
         }
       },
       effect : {

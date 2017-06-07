@@ -326,15 +326,15 @@
                 if (controls.dock == "S1") {
                     serviceTypes = 3;
                     vehicleTotalAmount = 10.0 - (controls.slider + Math.random()*0.01-0.005) * 2.5;
-                    time = controls.slider * 5.0;
+                    time = controls.slider * 4.5;
                     userAmount = (controls.slider + Math.random()*0.1-0.05) * 4;
-                    serviceCoverageArea = (controls.slider + Math.random()*0.01-0.005) * 4.3;
+                    serviceCoverageArea = (controls.slider + Math.random()*0.01-0.005) * 3.3;
                 } else if (controls.dock == "S2") {
                     serviceTypes = 10;
                     vehicleTotalAmount = 7.5 - (controls.slider + Math.random()*0.01-0.005) * 2.1;
-                    time = 5 + controls.slider * 5.0;
+                    time = 4.5 + controls.slider * 4.5;
                     userAmount = 4 + (controls.slider + Math.random()*0.1-0.05) * 4;
-                    serviceCoverageArea = 4.3 + (controls.slider + Math.random()*0.01-0.005) * 4.7;
+                    serviceCoverageArea = 3.3 + (controls.slider + Math.random()*0.01-0.005) * 5;
                 }
 
                 option = {
@@ -406,7 +406,7 @@
                                         } else if (a.name == 'Vehicle\nTotal\nAmount') {
                                             return Math.round(a.value * 10243);
                                         } else if (a.name == 'Time') {
-                                            return Math.round(a.value * 10);
+                                            return Math.round(a.value * 69);
                                         }
                                     }
                                 }
@@ -437,7 +437,7 @@
                                         } else if (a.name == 'Vehicle\nTotal\nAmount') {
                                             return Math.round(a.value * 10243);
                                         } else if (a.name == 'Time') {
-                                            return Math.round(a.value * 10);
+                                            return Math.round(a.value * 69);
                                         }
                                     }
                                 }
