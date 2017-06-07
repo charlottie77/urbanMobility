@@ -334,12 +334,30 @@
                     time = controls.slider * 4.5;
                     userAmount = (controls.slider + Math.random()*0.1-0.05) * 4;
                     serviceCoverageArea = (controls.slider + Math.random()*0.01-0.005) * 3.3;
+                    if (vehicleTotalAmount < 0) {
+                        vehicleTotalAmount = 0;
+                    }
+                    if (userAmount < 0) {
+                        userAmount = 0;
+                    }
+                    if (serviceCoverageArea < 0) {
+                        serviceCoverageArea = 0;
+                    }
                 } else if (controls.dock == "S2") {
                     serviceTypes = 10;
                     vehicleTotalAmount = 7.5 - (controls.slider + Math.random()*0.01-0.005) * 2.1;
                     time = 4.5 + controls.slider * 4.5;
                     userAmount = 4 + (controls.slider + Math.random()*0.1-0.05) * 4;
                     serviceCoverageArea = 3.3 + (controls.slider + Math.random()*0.01-0.005) * 5;
+                    if (vehicleTotalAmount < 0) {
+                        vehicleTotalAmount = 0;
+                    }
+                    if (userAmount < 0) {
+                        userAmount = 0;
+                    }
+                    if (serviceCoverageArea < 0) {
+                        serviceCoverageArea = 0;
+                    }
                 }
 
                 option = {
