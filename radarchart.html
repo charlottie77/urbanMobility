@@ -18,69 +18,69 @@
             <span style="color:#fff; font-family:Helvetica; font-size:40px; font-weight:800; ">Adaptive Transportation Service</span>
         </div>
 
-        <div id="radar-bar-chart-container" style="background:#000; padding-top:150px;">
-            <canvas id="myCanvas" width="600" height="600" style="position: absolute; padding-left: 30px;"></canvas>
-            <div id="radar-chart" style="width: 450px;height:450px; padding-left:105px;padding-top:75px;"></div>
-            <div id="bar-chart" style="width: 380px;height:360px;padding-top:190px; padding-left:35px;"></div>
+        <div id="radar-bar-chart-container" style="background:#000; padding-top:170px;">
+            <canvas id="myCanvas" width="600" height="600" style="position: absolute; padding-left: 50px;"></canvas>
+            <div id="radar-chart" style="width: 450px;height:450px; padding-left:125px;padding-top:75px;"></div>
+            <div id="bar-chart" style="width: 380px;height:360px;padding-top:220px; padding-left:35px;"></div>
 
-            <div id="radar-border" style="position:absolute; left:30px; top:90px; width:640px; height:680px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:115px; left:65px;">PERFORMANCE MAP</div>
+            <div id="radar-border" style="position:absolute; left:30px; top:110px; width:640px; height:720px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:135px; left:65px;">PERFORMANCE MAP</div>
 
-            <div id="bar-border" style="position:absolute; left:30px; top:810px; width:410px; height:440px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="bar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:835px; left:65px;">INDICATORS</div>
+            <div id="bar-border" style="position:absolute; left:30px; top:880px; width:410px; height:480px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="bar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:905px; left:65px;">INDICATORS</div>
 
-            <div id="services-border" style="position:absolute; left:460px; top:810px; width:210px; height:440px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:835px; left:495px;">SERVICES</div>
-            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; top:885px; left:495px;">
-                <span>Business Travel(CAR)</span><br />
+            <div id="services-border" style="position:absolute; left:460px; top:880px; width:210px; height:480px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:905px; left:495px;">SERVICES</div>
+            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; top:955px; left:495px;">
+                <span>Business (car)</span><br />
                 <div style="display:block; color:#7c19df; font-family:Helvetica; font-size:18px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#7c19df; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-1">0</span>
                 </div>
 
-                <span>Business Travel(BUS)</span><br />
+                <span>Touring (bus), Commercial<br />Shuttle, Company Shuttle,<br />Business (bus)</span><br />
                 <div style="display:block; color:#ef8541; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#ef8541; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-2">0</span>
                 </div>
 
-                <span>AD Cars</span><br />
+                <span>AD Car</span><br />
                 <div style="display:block; color:#e04402; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#e04402; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-3">0</span>
                 </div>
 
-                <span>Dynamic Public <br />Transportation(CAR)</span><br />
+                <span>Car Pooling, Ride Sharing</span><br />
                 <div style="display:block; color:#01ba48; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#01ba48; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-4">0</span>
                 </div>
 
-                <span>Dynamic Public <br />Transportation(BUS)</span><br />
+                <span>Dynamic Public<br />Transport (Bus)</span><br />
                 <div style="display:block; color:#e2d704; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#e2d704; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-5">0</span>
                 </div>
 
-                <span>Community-Based<br />Commute(CAR)</span><br />
+                <span>Community-Based<br />Commute(Bus)</span><br />
                 <div style="display:block; color:#0daaff; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#0daaff; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-6">0</span>
                 </div>
 
-                <span>Community-Based<br />Commute(BUS)</span><br />
+                <span>Community-Based<br />Commute(Car)</span><br />
                 <div style="display:block; color:#3080ff; font-family:Helvetica; font-size:16px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#3080ff; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
                     <span id="service-7">0</span>
                 </div>
             </div>
 
-            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:715px; left:65px;">
+            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:755px; left:65px;">
                 <div style="background:#BBBBBB; width:30px; height:4px; display:inline-block;"></div> Baseline values
                 <br />
                 <div style="background:#30A8DB; width:30px; height:4px; display:inline-block;"></div> Current values
             </div>
-            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:840px; left:280px;">
+            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:1290px; left:75px;">
                 <div style="background:#666666; width:15px; height:15px; display:inline-block;"></div>
                 <span style="padding-top:-10px;">Baseline values</span>
                 <br />
