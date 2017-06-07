@@ -245,8 +245,8 @@ setTimeout(()=>{
       //     })
       //     break;
       // }
-      const stageOne = [30,0,60,80,80,60,20,60,90].map((e)=>{return e/1.2});
-      const stageTwo = [30,0,40,60,60,50,0,40,70].map((e)=>{return e/1.2});
+      const stageOne = [50,40,60,80,80,60,40,60,90].map((e)=>{return e/1.2});
+      const stageTwo = [50,40,40,60,60,50,30,40,70].map((e)=>{return e/1.2});
       dataGroupOne.forEach(e=>{
         let H = (e.__baseH + stageOne[(window.__slider*9).toInt()] < 120) ? (e.__baseH + stageOne[(window.__slider*9).toInt()]) : 120
         e.lineStyle.normal.color = 'hsl('+ H + ',100%,50%)';
