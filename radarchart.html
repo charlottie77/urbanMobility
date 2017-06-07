@@ -11,21 +11,27 @@
         <input type="radio" name="dock" value="S1" checked onchange="updateDock(this.value)">S1</input>
         <input type="radio" name="dock" value="S2" onchange="updateDock(this.value)">S2</input>
         <input type="radio" name="dock" value="Day" onchange="updateDock(this.value)">Day</input> -->
+        <div id="title-line1" style="position:absolute; background:#fff; width:33%; height:3px; left:30px; top: 50px;display: inline-block;"></div>
+        <div id="title-line1" style="position:absolute; background:#fff; width:33%; height:3px; right:30px; top: 50px;display: inline-block;"></div>
 
-        <div id="radar-bar-chart-container" style="background:#000; padding-top:100px;">
+        <div id="bar3d-label" style="width:100%; position:absolute; top:30px; text-align:center;">
+            <span style="color:#fff; font-family:Helvetica; font-size:40px; font-weight:800; ">Adaptive Transportation Service</span>
+        </div>
+
+        <div id="radar-bar-chart-container" style="background:#000; padding-top:150px;">
             <canvas id="myCanvas" width="600" height="600" style="position: absolute; padding-left: 30px;"></canvas>
             <div id="radar-chart" style="width: 450px;height:450px; padding-left:105px;padding-top:75px;"></div>
             <div id="bar-chart" style="width: 380px;height:360px;padding-top:190px; padding-left:35px;"></div>
 
-            <div id="radar-border" style="position:absolute; left:30px; top:40px; width:640px; height:680px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:65px; left:65px;">PERFORMANCE MAP</div>
+            <div id="radar-border" style="position:absolute; left:30px; top:90px; width:640px; height:680px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="radar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:115px; left:65px;">PERFORMANCE MAP</div>
 
-            <div id="bar-border" style="position:absolute; left:30px; top:760px; width:410px; height:440px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="bar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:785px; left:65px;">INDICATORS</div>
+            <div id="bar-border" style="position:absolute; left:30px; top:810px; width:410px; height:440px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="bar-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:835px; left:65px;">INDICATORS</div>
 
-            <div id="services-border" style="position:absolute; left:460px; top:760px; width:210px; height:440px; border:3px solid #999; border-radius:35px;"></div>
-            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:785px; left:495px;">SERVICES</div>
-            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; top:835px; left:495px;">
+            <div id="services-border" style="position:absolute; left:460px; top:810px; width:210px; height:440px; border:3px solid #999; border-radius:35px;"></div>
+            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:100; position:absolute; top:835px; left:495px;">SERVICES</div>
+            <div id="services-label" style="color:#fff; font-family:Helvetica; font-size:14px; font-weight:100; position:absolute; top:885px; left:495px;">
                 <span>Business Travel(CAR)</span><br />
                 <div style="display:block; color:#7c19df; font-family:Helvetica; font-size:18px; font-weight:400; padding-bottom:6px;">
                     <div style="background:#7c19df; width:12px; height:12px; display:inline-block; border-radius: 10px;"></div>
@@ -69,12 +75,12 @@
                 </div>
             </div>
 
-            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:665px; left:65px;">
+            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:715px; left:65px;">
                 <div style="background:#BBBBBB; width:30px; height:4px; display:inline-block;"></div> Baseline values
                 <br />
                 <div style="background:#30A8DB; width:30px; height:4px; display:inline-block;"></div> Current values
             </div>
-            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:790px; left:280px;">
+            <div id="radar-legend" style="color:#fff; font-family:Helvetica; font-size:16px; font-weight:100; position:absolute; top:840px; left:280px;">
                 <div style="background:#666666; width:15px; height:15px; display:inline-block;"></div>
                 <span style="padding-top:-10px;">Baseline values</span>
                 <br />
@@ -83,7 +89,7 @@
             </div>
         </div>
 
-        <div id="bar3d-label" style="color:#fff; font-family:Helvetica; font-size:30px; font-weight:800; position:absolute; bottom:0.5%; left:50px;">Adaptive Transportation Service(ATS)</div>
+
 
         <script type="text/javascript">
             var c=document.getElementById("myCanvas");
@@ -114,7 +120,6 @@
                 dock: "S1",
                 slider: 0.0
             };
-
 
             const {ipcRenderer} = require('electron')
             ipcRenderer.on('setControl',(evt,arg)=>{
