@@ -31,14 +31,23 @@ WSclient.on('connect', function(connection) {
     });
 });
 
+ipcMain.on('controlSig',(evt,arg)=>{
+  // console.log(arg);
+  agentBase.webContents.send('setControl', arg);
+  radar.webContents.send('setControl', arg);
+  bar3D.webContents.send('setControl', arg);
+  scatter.webContents.send('setControl', arg);
+})
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 // let mainWindow
 let agentBase
-let trafficJam
+// let trafficJam
 let radar
 let bar3D
 let scatter
+let controlWin
 // let no2Window
 function createWindow () {
   // Create the browser window.
@@ -46,9 +55,15 @@ function createWindow () {
   radar = new BrowserWindow({width: 630, height: 900,backgroundColor: '#000000',frame:false,thickFrame:false})
   bar3D = new BrowserWindow({width: 630, height: 400,backgroundColor: '#000000',frame:false,thickFrame:false})
   scatter = new BrowserWindow({width: 600, height: 500,backgroundColor: '#000000',frame:false,thickFrame:false});
-  trafficJam = new BrowserWindow({width:600,height:600,backgroundColor:'#000000'});
+  controlWin = new BrowserWindow({width: 600, height: 500,backgroundColor: '#ffffff'})
+  // trafficJam = new BrowserWindow({width:600,height:600,backgroundColor:'#000000'});
   // no2Window = new BrowserWindow({width:1366,height:768})
   // and load the index.html of the app.
+  controlWin.loadURL(url.format({
+    pathname: path.join(__dirname,'control.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
   agentBase.loadURL(url.format({
     pathname: path.join(__dirname, 'agentBase.html'),
     protocol: 'file:',
@@ -69,11 +84,11 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
-  trafficJam.loadURL(url.format({
-    pathname: path.join(__dirname, 'trafficJam.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  // trafficJam.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'trafficJam.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }))
   // no2Window.loadURL(url.format({
   //   pathname: path.join(__dirname, 'index.html'),
   //   protocol: 'file:',
@@ -90,10 +105,10 @@ function createWindow () {
 //   event.sender.send('randShiftCB',rtn);
 // })
 
-  agentBase.webContents.on('did-finish-load', () => {
+  // agentBase.webContents.on('did-finish-load', () => {
 
-    WSclient.connect('ws://127.0.0.1:5678/')
-  })
+  //   WSclient.connect('ws://127.0.0.1:5678/')
+  // })
 
   // no2Window.webContents.on('did-finish-load', () => {
   //   setInterval(()=>{
@@ -111,10 +126,11 @@ function createWindow () {
     // when you should delete the corresponding element.
     agentBase = null
   })
+  controlWin.on('closed',()=>{controlWin = null})
   radar.on('closed',function(){radar = null})
   bar3D.on('closed',()=>{bar3D = null})
   scatter.on('closed',()=>{scatter = null})
-  trafficJam.on('closed',()=>{scatter = null})
+  // trafficJam.on('closed',()=>{scatter = null})
 }
 
 // This method will be called when Electron has finished
