@@ -375,7 +375,7 @@ var option = {
         normal: {
           color: '#ffffff',
           opacity: 0.1,
-          width: 3
+          width: 0.02
         }
       },
     },
@@ -383,7 +383,7 @@ var option = {
       __NO:1,
       __NAME:'Controller',
       animation:true,
-      animationDelay:function(i){return i*50},
+      // animationDelay:function(i){return i*20},
       type: 'lines',
       coordinateSystem: 'bmap',
       polyline: true,
@@ -392,18 +392,18 @@ var option = {
       lineStyle: {
         normal: {
           color: '#ffffff',
-          opacity: 0.1,
-          width: 0.5
+          opacity: 0.2,
+          width: 0.02
         }
       },
       effect : {
-        constantSpeed: 50,
+        constantSpeed: 40,
         show: true,
-        trailLength: 0.1,
-        symbolSize: 1.5,
-        delay:function(i){return i*50}
+        trailLength: 0.5,
+        symbolSize: 0.8,
+        delay:function(i){return i*20}
       },
-      zlevel: 1,
+      zlevel: 2,
     },
   ]
 }
